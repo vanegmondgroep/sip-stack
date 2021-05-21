@@ -1,0 +1,48 @@
+locations:
+  - path: /svc/logs/
+    proxy: http://grafana:3000/
+    config: |
+      auth_request /check-auth;
+      auth_request_set $auth_name $upstream_http_x_sip_auth_name;
+      auth_request_set $auth_email $upstream_http_x_sip_auth_email;
+      proxy_set_header X-SIP-AUTH-NAME $auth_name;
+      proxy_set_header X-SIP-AUTH-EMAIL $auth_email;
+
+  - path: /svc/node-red/
+    proxy: http://node-red:1880/
+    config: |
+      auth_request /check-auth;
+
+  - path: /svc/mail/
+    proxy: http://mailhog:8025/
+    config: |
+      auth_request /check-auth;
+
+  - path: /svc/influxdb/
+    proxy: http://influxdb:8086/
+    config: |
+      auth_request /check-auth;
+
+  - path: /svc/phpmyadmin/
+    proxy: http://phpmyadmin:8080/
+
+  - path: /check-auth
+    proxy: http://127.0.0.1:8080/auth
+    config: |
+      internal;
+      proxy_pass_request_body off;
+      proxy_set_header Content-Length "";
+      proxy_set_header X-Original-URI $request_uri;
+
+supervisor:
+  - name: horizon
+    command: /home/runtime/public/artisan horizon
+    directory: /home/runtime/public
+
+  - name: scheduler
+    command: /home/runtime/public/artisan schedule:work
+    directory: /home/runtime/public
+
+  - name: short-scheduler
+    command: /home/runtime/public/artisan short-schedule:run
+    directory: /home/runtime/public
