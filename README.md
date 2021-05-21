@@ -29,6 +29,9 @@ This stack can be used for a standalone installation of the Smart Industry Platf
    ```
 1. Navigate to `http://<ip-address>/register` and register a new user.
 
+## Configuration
+
+By default, Docker Compose reads two files, a `docker-compose.yml` and an optional `docker-compose.override.yml` file. By convention, the `docker-compose.yml` contains the base configuration for the Smart Industry Platform. The override file, as its name implies, can contain configuration overrides for existing services or entirely new services. All additional data (for example configuration files or volume mounts) should be created in the `custom` folder. More information about overriding container configuration can be found [here](https://docs.docker.com/compose/extends/).
 
 ## Upgrade
 
