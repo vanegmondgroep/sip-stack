@@ -15,6 +15,9 @@ case "$1" in
     down)
         docker-compose down "${@:2}"
         ;;
+    pull)
+        docker-compose pull "${@:2}"
+        ;;
     cli)
         docker-compose exec -e SIP_CLI=true sip artisan "${@:2}"
         ;;
