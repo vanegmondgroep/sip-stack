@@ -27,6 +27,10 @@ This stack can be used for a standalone installation of the Smart Industry Platf
    ```bash
    ./sip artisan migrate
    ```
+1. Generate application key.
+   ```bash
+   ./sip artisan key:generate
+   ```
 1. Navigate to `http://<ip-address>/register` and register a new user.
 
 ## Configuration
