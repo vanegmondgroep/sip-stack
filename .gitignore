@@ -1,2 +1,5 @@
 .env
 .env.backup
+data
+config/*/custom
+docker-compose.override.yml
