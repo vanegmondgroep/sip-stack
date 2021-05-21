@@ -53,7 +53,7 @@ This stack can be used for a standalone installation of the Smart Industry Platf
    ./sip artisan migrate
    ```
 
-#### Commands
+## Commands
 
 ```bash
 # Start containers
