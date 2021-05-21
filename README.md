@@ -2,6 +2,12 @@
 
 This stack can be used for a standalone installation of the Smart Industry Platform.
 
+## Requirements
+
+* [Ubuntu 20.04](https://ubuntu.com/)
+* [Docker](https://docs.docker.com/engine/install/ubuntu/)
+* [Docker Compose](https://docs.docker.com/compose/install/)
+
 ## Install
 
 1. Clone this repository to your computer or server.
