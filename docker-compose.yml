@@ -9,7 +9,7 @@ services:
       - "${APP_HTTP_PORT:-8080}:8080"
     volumes:
       - "sip:/home/runtime/public/storage"
-      - "./.env:/home/runtime/public/.env:ro"
+      - "./.env:/home/runtime/public/.env"
       - "./runtime.yml:/opt/runtime/config/runtime.yml:ro"
     depends_on:
       mysql:
