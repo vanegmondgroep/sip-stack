@@ -27,7 +27,7 @@ locations:
     proxy: http://phpmyadmin:8080/
 
   - path: /check-auth
-    proxy: http://127.0.0.1:8080/auth
+    proxy: http://127.0.0.1/auth
     config: |
       internal;
       proxy_pass_request_body off;
