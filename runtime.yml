@@ -42,7 +42,3 @@ supervisor:
   - name: scheduler
     command: /home/runtime/public/artisan schedule:work
     directory: /home/runtime/public
-
-  - name: short-scheduler
-    command: /home/runtime/public/artisan short-schedule:run
-    directory: /home/runtime/public
