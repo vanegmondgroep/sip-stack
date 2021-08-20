@@ -57,7 +57,7 @@ case "$1" in
         log "Fix permissions"
         docker-compose exec -T -u root sip bash -c "chown -R $USER_ID:$USER_ID /opt/vanegmond/backups"
 
-        log "Cleanup old backup archives"
+        log "Cleanup backup archives"
         THRESHOLD=$(date -d "30 days ago" +%s)
         find ./backups -maxdepth 1 -type f -print0  | while IFS= read -d '' -r file; do
             if [[ "$(basename "$file")" =~ ^sip-backup_[0-9]{10}.tar.gz$ ]]; then
