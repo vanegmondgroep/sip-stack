@@ -10,8 +10,10 @@ services:
       - "${APP_HTTPS_PORT:-443}:443"
     volumes:
       - "sip:/home/runtime/public/storage"
+      - "backup:/opt/vanegmond/backup"
       - "./.env:/home/runtime/public/.env"
       - "./runtime.yml:/opt/runtime/config/runtime.yml:ro"
+      - "./backups:/opt/vanegmond/backups"
     depends_on:
       mysql:
         condition: service_healthy
@@ -28,6 +30,7 @@ services:
       MARIADB_PASSWORD: "${DB_PASSWORD:-secret}"
     volumes:
       - "mysql:/bitnami/mariadb"
+      - "backup:/opt/vanegmond/backup"
     healthcheck:
       test: ['CMD', '/opt/bitnami/scripts/mariadb/healthcheck.sh']
       interval: 5s
@@ -48,21 +51,21 @@ services:
       - ${APP_INFLUXDB_PORT:-8086}:8086
     volumes:
       - "influxdb:/var/lib/influxdb2"
+      - "backup:/opt/vanegmond/backup"
 
   grafana:
-    image: "grafana/grafana:7.4.5"
+    image: "ghcr.io/vanegmondgroep/grafana:${GRAFANA_DOCKER_TAG:-8.0}"
     restart: always
-    environment:
-      GF_PATHS_CONFIG: "/usr/share/grafana/conf/custom.ini"
     volumes:
-      - "grafana:/var/lib/grafana"
-      - "./config/grafana/grafana.ini:/usr/share/grafana/conf/custom.ini:ro"
+      - "grafana:/opt/vanegmond/grafana/data"
+      - "backup:/opt/vanegmond/backup"
 
   node-red:
-    image: "nodered/node-red:1.2.9"
+    image: ghcr.io/vanegmondgroep/node-red:${NODE_RED_DOCKER_TAG:-1.3}
     restart: always
     volumes:
       - "node-red:/data"
+      - "backup:/opt/vanegmond/backup"
 
   phpmyadmin:
     image: "docker.io/bitnami/phpmyadmin:5"
@@ -86,4 +89,6 @@ volumes:
   grafana:
     driver: local
   node-red:
+    driver: local
+  backup:
     driver: local
