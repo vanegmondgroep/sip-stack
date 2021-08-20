@@ -38,8 +38,6 @@ services:
     restart: always
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
-    volumes:
-      - "redis:/bitnami/redis/data"
 
   # Proxy not posible yet: https://github.com/influxdata/influxdb/issues/15721
   influxdb:
@@ -81,8 +79,6 @@ volumes:
   sip:
     driver: local
   mysql:
-    driver: local
-  redis:
     driver: local
   influxdb:
     driver: local
