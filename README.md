@@ -80,4 +80,7 @@ By default, Docker Compose reads two files, a `docker-compose.yml` and an option
 
 # Reload runtime
 ./sip runtime reload
+
+# Backup
+./sip backup
 ```
