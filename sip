@@ -46,7 +46,7 @@ case "$1" in
         docker-compose exec -T -u root node-red bash -c "cp /data/flows.json $NODERED_BACKUP_DIR/flows.json"
 
         log "Backup Grafana database"
-        docker-compose exec -T -u root grafana bash -c "cp /opt/vanegmond/grafana/data/grafana.db $GRAFANA_BACKUP_DIR/grafana.db"
+        docker-compose exec -T -u root grafana bash -c "cp /var/lib/grafana/data/grafana.db $GRAFANA_BACKUP_DIR/grafana.db"
 
         log "Dump MySQL database"
         docker-compose exec -T -u root mysql bash -c "mysqldump -u$DB_USERNAME -p$DB_PASSWORD -h$DB_HOST $DB_DATABASE > $MYSQL_BACKUP_DIR/dump.sql"
