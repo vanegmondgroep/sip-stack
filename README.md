@@ -49,11 +49,13 @@ Follow these additonal steps if you're installing a server or VM for a client:
 
 1. Create a new GitHub repository with the following name: `sip-<client>-<project>` (example: `sip-septo-cotac`).
 1. Navigate to the root of the stack folder.
-1. Update the remote configuration and push changes to GitHub (login with your username and personal access token).
+1. Update the remote configuration and push changes to GitHub (login with your username and token).
 
    ```bash
    git remote rm origin
+   
    git remote add origin https://github.com/vanegmondgroep/sip-<client>-<project)>.git
+   
    git push origin main
    ```
 
