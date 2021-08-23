@@ -24,7 +24,9 @@ _**Important:** [create a personal access token](https://github.com/settings/tok
    docker login ghcr.io
    ```
 
-1. Create a `.env` file in the root of the project with the contents of [.env.example](https://github.com/vanegmondgroep/smart-industry-platform/blob/main/.env.example) from the Smart Industry Platform repository.
+1. Navigate to the root of the stack folder.
+
+1. Create a `.env` file with the contents of [.env.example](https://github.com/vanegmondgroep/smart-industry-platform/blob/main/.env.example) from the Smart Industry Platform repository.
 
 1. Start the containers.
    ```bash
@@ -55,7 +57,7 @@ Follow these additonal steps if you're installing a server or VM for a client:
    git remote rm origin
    
    git remote add origin https://github.com/vanegmondgroep/sip-<client>-<project)>.git
-   
+
    git push origin main
    ```
 
