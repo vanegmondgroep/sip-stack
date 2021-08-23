@@ -10,54 +10,51 @@ This stack can be used for a standalone installation of the Smart Industry Platf
 
 ## Install
 
-1. Clone this repository to your computer or server.
-   ```bash
-   git clone git@github.com:vanegmondgroep/sip-stack.git 
+_**Important:** [create a personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) with a short expiry date (scopes: `repo` and `read:packages`) before proceding with the following steps. You can use this token as your password. Don't save the token on the system when you're installing a server or VM for a client ._
+
+1. Clone this repository and login with your GitHub username and token.
+
    ```
-1. Create a `.env` file in the root of the project with the contents of [.env.example](https://github.com/vanegmondgroep/smart-industry-platform/blob/main/.env.example) from the Smart Industry Platform repository.
-1. Login to the GitHub container registry with your GitHub username and [a personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) as password (scope: `read:packages`). 
+   git clone https://github.com/vanegmondgroep/sip-stack.git
+   ```
+
+1. Login to the GitHub container registry with your GitHub username and token.
+   
    ```bash
    docker login ghcr.io
    ```
+
+1. Create a `.env` file in the root of the project with the contents of [.env.example](https://github.com/vanegmondgroep/smart-industry-platform/blob/main/.env.example) from the Smart Industry Platform repository.
+
 1. Start the containers.
    ```bash
    ./sip up -d
    ```
+
 1. Migrate the database.
    ```bash
    ./sip artisan migrate
    ```
+
 1. Generate application key.
    ```bash
    ./sip artisan key:generate
    ```
+
 1. Navigate to `http://<ip-address>/register` and register a new user.
 
-## Configuration
+### Client Install
 
-By default, Docker Compose reads two files, a `docker-compose.yml` and an optional `docker-compose.override.yml` file. By convention, the `docker-compose.yml` contains the base configuration for the Smart Industry Platform. The override file, as its name implies, can contain configuration overrides for existing services or entirely new services. All additional data (for example configuration files or volume mounts) should be created in the `custom` folder. More information about overriding container configuration can be found [here](https://docs.docker.com/compose/extends/).
+Follow these additonal steps if you're installing a server or VM for a client:
 
-## Upgrade
+1. Create a new GitHub repository with the following name: `sip-<client>-<project>` (example: `sip-septo-cotac`).
+1. Navigate to the root of the stack folder.
+1. Update the remote configuration and push changes to GitHub (login with your username and personal access token).
 
-1. Stop the containers.
    ```bash
-   ./sip down
-   ```
-1. Pull the latest stack updates.
-   ```bash
-   git pull
-   ```
-1. Pull the latest container builds.
-   ```bash
-   ./sip pull 
-   ```
-1. Start the containers.
-   ```bash
-   ./sip up -d
-   ```
-1. Migrate the database.
-   ```bash
-   ./sip artisan migrate
+   git remote rm origin
+   git remote add origin https://github.com/vanegmondgroep/sip-<client>-<project)>.git
+   git push origin main
    ```
 
 ## Commands
