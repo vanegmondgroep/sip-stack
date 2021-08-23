@@ -10,7 +10,7 @@ This stack can be used for a standalone installation of the Smart Industry Platf
 
 ## Install
 
-_**Important:** [create a personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) with a short expiry date (scopes: `repo` and `read:packages`) before proceding with the following steps. You can use this token as your password. Don't save the token on the system when you're installing a server or VM for a client ._
+_**Important:** [create a personal access token](https://github.com/settings/tokens) with a short expiry date (scopes: `repo` and `read:packages`) before proceding with the following steps. You can use this token as your password. Don't save the token on the system when you're installing a server or VM for a client ._
 
 1. Clone this repository and login with your GitHub username and token.
 
