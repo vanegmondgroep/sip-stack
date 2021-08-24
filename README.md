@@ -8,21 +8,39 @@ This stack can be used for a standalone installation of the Smart Industry Platf
 * [Docker](https://docs.docker.com/engine/install/ubuntu/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
+To install or update the stack you need to have access to this repository from the server or VM. The authentication method you use depends on wether you're installing a server for a client or for yourself / development:
+
+* Generate a new SSH key pair (don't overwrite existing keys, press enter on every step):
+   ```bash
+   # Personal installation
+   ssh-keygen -t ed25519 -C "<your-email>"
+
+   # Client installation
+   ssh-keygen -t ed25519 -C "sip-<client>-<project>"
+   ```
+* Copy the contents of the public key to your clipboard:
+   ```bash
+   cat ~/.ssh/id_ed25519.pub
+   ```
+* Add the SSH public key to GitHub:
+   * **Personal installation:** [add the public SSH key to your GitHub account.](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) 
+   _Note: the server can access all the repository you have access to._
+
+   * **Client installation:** [add the public SSH key as deployment key to a repository.](https://docs.github.com/en/developers/overview/managing-deploy-keys#deploy-keys)
+   Title: `sip-<client>-<project>`
+   _Note: the server can only access a single repository._
+   
+To pull our private Docker containers you need to have access to the GitHub container registry from the server or VM. Authentication is done through a personal access token with a short expiration date and minimal scope:
+
+* [Create a personal access token](https://github.com/settings/tokens) with scope `read:packages` and set the expiration to `7 days`. You can extend the expiry date when you're installing a server for personal use.
+* Login to the GitHub container registry with your username and the generated token (password):
+  ```
+  docker login ghcr.io
+  ```
+
 ## Install
 
-_**Important:** [create a personal access token](https://github.com/settings/tokens) with a short expiry date (scopes: `repo` and `read:packages`) before proceding with the following steps. You can use this token as your password. Don't save the token on the system when you're installing a server or VM for a client ._
-
-1. Clone this repository and login with your GitHub username and token.
-
-   ```
-   git clone https://github.com/vanegmondgroep/sip-stack.git
-   ```
-
-1. Login to the GitHub container registry with your GitHub username and token.
-   
-   ```bash
-   docker login ghcr.io
-   ```
+1. Clone this repository to your server or VM (over SSH).
 
 1. Navigate to the root of the stack folder.
 
@@ -44,22 +62,6 @@ _**Important:** [create a personal access token](https://github.com/settings/tok
    ```
 
 1. Navigate to `http://<ip-address>/register` and register a new user.
-
-### Client Install
-
-Follow these additonal steps if you're installing a server or VM for a client:
-
-1. Create a new GitHub repository with the following name: `sip-<client>-<project>` (example: `sip-septo-cotac`).
-1. Navigate to the root of the stack folder.
-1. Update the remote configuration and push changes to GitHub (login with your username and token).
-
-   ```bash
-   git remote rm origin
-   
-   git remote add origin https://github.com/vanegmondgroep/sip-<client>-<project)>.git
-
-   git push origin main
-   ```
 
 ## Commands
 
