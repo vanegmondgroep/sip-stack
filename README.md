@@ -5,67 +5,37 @@ This stack can be used for a standalone installation of the Smart Industry Platf
 ## Requirements
 
 * [Ubuntu 20.04](https://ubuntu.com/)
-* [Docker](https://docs.docker.com/engine/install/ubuntu/)
-* [Docker Compose](https://docs.docker.com/compose/install/)
-
-To install or update the stack you need to have access to this repository from the server or VM. The authentication method you use depends on wether you're installing a server for a client or for yourself / development:
-
-* Generate a new SSH key pair (don't overwrite existing keys, press enter on every step):
-   ```bash
-   # Personal installation
-   ssh-keygen -t ed25519 -C "<your-email>"
-
-   # Client installation
-   ssh-keygen -t ed25519 -C "sip-<client>-<project>"
-   ```
-* Copy the contents of the public key to your clipboard:
-   ```bash
-   cat ~/.ssh/id_ed25519.pub
-   ```
-* Add the SSH public key to GitHub:
-   * **Personal installation:** [add the public SSH key to your GitHub account.](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) _Note: the server can access all the repository you have access to._
-
-   * **Client installation:** [add the public SSH key as deployment key to a repository.](https://docs.github.com/en/developers/overview/managing-deploy-keys#deploy-keys) _Note: the server can only access a single repository._
-   
-To pull our private Docker containers you need to have access to the GitHub container registry from the server or VM. Authentication is done through a personal access token with a short expiration date and minimal scope:
-
-* [Create a personal access token](https://github.com/settings/tokens) with scope `read:packages` and set the expiration to `7 days`. You can extend the expiry date when you're installing a server for personal use.
-* Login to the GitHub container registry with your username and the generated token (password):
-  ```
-  docker login ghcr.io
-  ```
+* [Install Docker](https://github.com/vanegmondgroep/engineering-best-practices/blob/main/docs/Docker.md#install-docker)
+* [Install Docker Compose](https://github.com/vanegmondgroep/engineering-best-practices/blob/main/docs/Docker.md#install-docker-compose)
+* [Authenticate to GitHub](https://github.com/vanegmondgroep/engineering-best-practices/blob/main/docs/Git.md#authenticate-to-github)
+* [Authenticate to the GitHub Container registry](https://github.com/vanegmondgroep/engineering-best-practices/blob/main/docs/Docker.md#authenticate-to-github-container-registry)
 
 ## Install
 
-1. Clone this repository to your server or VM (over SSH).
+* Clone this repository to your server or VM (over SSH).
 
-1. Navigate to the root of the stack folder.
+* Navigate to the root of the stack folder.
 
-1. Create a `.env` file with the contents of [.env.example](https://github.com/vanegmondgroep/smart-industry-platform/blob/main/.env.example) from the Smart Industry Platform repository.
+* Create a `.env`-file with the contents of [.env.example](https://github.com/vanegmondgroep/smart-industry-platform/blob/main/.env.example) from the Smart Industry Platform repository.
 
-1. Start the containers.
-   ```bash
-   ./sip up -d
-   ```
-
-1. Migrate the database.
-   ```bash
-   ./sip artisan migrate
-   ```
-
-1. Generate application key.
-   ```bash
-   ./sip artisan key:generate
-   ```
-
-1. Navigate to `http://<ip-address>/register` and register a new user.
-
-## Commands
+*  Run the following commands to initialize the stack:
 
 ```bash
 # Start containers
 ./sip up -d
 
+# Migrate the database
+./sip artisan migrate
+
+# Generate application key
+./sip artisan key:generate
+```
+
+* Navigate to `http://<ip-address>/register` and register a new user.
+
+## Commands
+
+```bash
 # Stop containers
 ./sip down
 
