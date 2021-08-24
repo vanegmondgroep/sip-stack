@@ -23,12 +23,9 @@ To install or update the stack you need to have access to this repository from t
    cat ~/.ssh/id_ed25519.pub
    ```
 * Add the SSH public key to GitHub:
-   * **Personal installation:** [add the public SSH key to your GitHub account.](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) 
-   _Note: the server can access all the repository you have access to._
+   * **Personal installation:** [add the public SSH key to your GitHub account.](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) _Note: the server can access all the repository you have access to._
 
-   * **Client installation:** [add the public SSH key as deployment key to a repository.](https://docs.github.com/en/developers/overview/managing-deploy-keys#deploy-keys)
-   Title: `sip-<client>-<project>`
-   _Note: the server can only access a single repository._
+   * **Client installation:** [add the public SSH key as deployment key to a repository.](https://docs.github.com/en/developers/overview/managing-deploy-keys#deploy-keys) _Note: the server can only access a single repository._
    
 To pull our private Docker containers you need to have access to the GitHub container registry from the server or VM. Authentication is done through a personal access token with a short expiration date and minimal scope:
 
