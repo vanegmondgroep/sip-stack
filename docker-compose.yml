@@ -10,10 +10,9 @@ services:
       - "${APP_HTTPS_PORT:-443}:443"
     volumes:
       - "sip:/home/runtime/public/storage"
-      - "backup:/opt/vanegmond/backup"
       - "./.env:/home/runtime/public/.env"
       - "./runtime.yml:/opt/runtime/config/runtime.yml:ro"
-      - "./backups:/opt/vanegmond/backups"
+      - "./data:/opt/vanegmond/data"
     depends_on:
       mysql:
         condition: service_healthy
@@ -30,7 +29,7 @@ services:
       MARIADB_PASSWORD: "${DB_PASSWORD:-secret}"
     volumes:
       - "mysql:/bitnami/mariadb"
-      - "backup:/opt/vanegmond/backup"
+      - "./data:/opt/vanegmond/data"
     healthcheck:
       test: ['CMD', '/opt/bitnami/scripts/mariadb/healthcheck.sh']
       interval: 5s
@@ -51,21 +50,22 @@ services:
       - ${APP_INFLUXDB_PORT:-8086}:8086
     volumes:
       - "influxdb:/var/lib/influxdb2"
-      - "backup:/opt/vanegmond/backup"
+      - "./data:/opt/vanegmond/data"
+      - "./config:/opt/vanegmond/config"
 
   grafana:
     image: "ghcr.io/vanegmondgroep/grafana:1.0.0"
     restart: always
     volumes:
       - "grafana:/var/lib/grafana/data"
-      - "backup:/opt/vanegmond/backup"
+      - "./data:/opt/vanegmond/data"
 
   node-red:
     image: ghcr.io/vanegmondgroep/node-red:1.0.0
     restart: always
     volumes:
       - "node-red:/data"
-      - "backup:/opt/vanegmond/backup"
+      - "./data:/opt/vanegmond/data"
 
   phpmyadmin:
     image: "docker.io/bitnami/phpmyadmin:5"
@@ -90,5 +90,4 @@ volumes:
     driver: local
   node-red:
     driver: local
-  backup:
-    driver: local
+
