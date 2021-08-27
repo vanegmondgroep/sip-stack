@@ -11,7 +11,7 @@ The SIP stack can be used for a standalone installation of the Smart Industry Pl
 
 ## Installation
 
-> If you're preparing an installation for a new project [follow these steps first](#project-installation).
+**Note:** if you're preparing an installation for a new project [follow these steps first](#project-installation).
 
 * Clone this repository to your server or VM (over SSH).
 
