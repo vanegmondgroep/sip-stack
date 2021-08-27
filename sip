@@ -66,6 +66,8 @@ function runExport {
 
     log "Cleanup old exports in $EXPORTS_PATH"
     cleanup $EXPORTS_PATH sip-export
+
+    return 0
 }
 
 function runBackup {
@@ -108,6 +110,8 @@ function runBackup {
 
     log "Cleanup old backups in $BACKUPS_PATH"
     cleanup $BACKUPS_PATH sip-backup
+
+    return 0
 }
 
 # ---------------------------------------------------------- #
