@@ -12,7 +12,7 @@ services:
       - "sip:/home/runtime/public/storage"
       - "./.env:/home/runtime/public/.env"
       - "./runtime.yml:/opt/runtime/config/runtime.yml:ro"
-      - "./data:/opt/vanegmond/data"
+      - "./data:/opt/stack/data"
     depends_on:
       mysql:
         condition: service_healthy
@@ -29,7 +29,7 @@ services:
       MARIADB_PASSWORD: "${DB_PASSWORD:-secret}"
     volumes:
       - "mysql:/bitnami/mariadb"
-      - "./data:/opt/vanegmond/data"
+      - "./data:/opt/stack/data"
     healthcheck:
       test: ['CMD', '/opt/bitnami/scripts/mariadb/healthcheck.sh']
       interval: 5s
@@ -48,24 +48,31 @@ services:
     restart: always
     ports:
       - ${APP_INFLUXDB_PORT:-8086}:8086
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: 'setup'
+      DOCKER_INFLUXDB_INIT_ORG: ${INFLUXDB_ORG:?}
+      DOCKER_INFLUXDB_INIT_BUCKET: ${INFLUXDB_BUCKET:?}
+      DOCKER_INFLUXDB_INIT_USERNAME: ${INFLUXDB_USERNAME:?}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${INFLUXDB_PASSWORD:?}
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${INFLUXDB_TOKEN:?}
     volumes:
       - "influxdb:/var/lib/influxdb2"
-      - "./data:/opt/vanegmond/data"
-      - "./config:/opt/vanegmond/config"
+      - "./data:/opt/stack/data"
+      - "./config:/opt/stack/config"
 
   grafana:
     image: "ghcr.io/vanegmondgroep/grafana:1.0.0"
     restart: always
     volumes:
       - "grafana:/var/lib/grafana/data"
-      - "./data:/opt/vanegmond/data"
+      - "./data:/opt/stack/data"
 
   node-red:
     image: ghcr.io/vanegmondgroep/node-red:1.0.0
     restart: always
     volumes:
       - "node-red:/data"
-      - "./data:/opt/vanegmond/data"
+      - "./data:/opt/stack/data"
 
   phpmyadmin:
     image: "docker.io/bitnami/phpmyadmin:5"

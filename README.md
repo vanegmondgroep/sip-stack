@@ -4,20 +4,23 @@ The SIP stack can be used for a standalone installation of the Smart Industry Pl
 
 ## Requirements
 
-* [Ubuntu 20.04](https://docs.vanegmond.cloud/ubuntu.html#initial-server-setup)
-* [Install & configure Git](https://docs.vanegmond.cloud/git.html)
-* [Install & configure Docker](https://docs.vanegmond.cloud/docker.html)
-* [Install & configure Docker Compose](https://docs.vanegmond.cloud/docker-compose.html)
+* Ubuntu 20.04
+* Composer
+* Docker
+* Docker Compose
 
 ## Installation
 
-**Note:** if you're preparing an installation for a new project [follow these steps first](#project-installation).
+* Authenticate to the GitHub container registry with your username and a personal access token as password (permissions: `read:packages`):
 
-* Clone this repository to your server or VM (over SSH).
+```bash
+docker login ghcr.io
+```
+* Create a new SIP Stack project (replace `<client>` and `<project>`):
 
-* Navigate to the root of the stack folder.
-
-* Create a `.env`-file with the contents of [.env.example](https://github.com/vanegmondgroep/smart-industry-platform/blob/main/.env.example) from the Smart Industry Platform repository.
+```bash
+composer create-project vanegmondgroep/sip-stack sip-<client>-<project>
+```
 
 *  Run the following commands to initialize the stack:
 
@@ -34,27 +37,11 @@ The SIP stack can be used for a standalone installation of the Smart Industry Pl
 
 * Navigate to `http://<ip-address>/register` and register a new user.
 
-### Project installation
-
-The stack configuration for each project is stored in GitHub. To prepare a repository for a new project we need to copy the latest stack code to the repository of the project.
-
-* Download the latest version of the SIP stack [here](https://github.com/vanegmondgroep/sip-stack/archive/refs/heads/main.zip) and unzip the files.
-
-* Create a new private repository in GitHub with name: `sip-<client>-<project>`
-
-* Click on the "uploading an existing file"-link.
-
-* Drag & drop the unzipped stack files to the repository.
-
-* Commit files with message: `Initial commit`
-
-* [Follow the normal installation instructions](#installation).
-
 ## Configuration
 
 ### Backups
 
-Add the following line to the `.env` file if you would like to move backups to another location [(for example a network share)](/ubuntu.html#mount-a-network-share):
+Add the following line to the `.env` file if you would like to move backups to another location (for example a network share):
 
 ```
 BACKUPS_PATH=/mnt/share/Backups
@@ -62,7 +49,7 @@ BACKUPS_PATH=/mnt/share/Backups
 
 ### Exports
 
-Modify `./config/export.flux` to change the InfluxDB export query. Add the following line to the `.env` file if you would like to move exports to another location [(for example a network share)](/ubuntu.html#mount-a-network-share):
+Modify `./config/export.flux` to change the InfluxDB export query and add the following line to the `.env` file if you would like to move exports to another location (for example a network share):
 
 ```
 EXPORTS_PATH=/mnt/share/Exports
