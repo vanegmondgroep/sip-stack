@@ -1,6 +1,6 @@
 {
     "name": "vanegmondgroep/sip-stack",
-    "description": "Standalone configuration for the Smart Industry Platform.",
+    "description": "Stack configuration for the Smart Industry Platform.",
     "type": "project",
     "authors": [
         {
