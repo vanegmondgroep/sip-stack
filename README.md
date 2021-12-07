@@ -1,6 +1,6 @@
 # Smart Industry Platform Stack
 
-The SIP stack can be used for a standalone installation of the Smart Industry Platform.
+Stack configuration for the Smart Industry Platform.
 
 ## Requirements
 
