@@ -1,0 +1,12 @@
+{
+    "name": "vanegmondgroep/sip-stack",
+    "description": "Standalone configuration for the Smart Industry Platform.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Nick Jansen",
+            "email": "n.jansen@vanegmond.nl"
+        }
+    ],
+    "require": {}
+}
