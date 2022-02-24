@@ -44,8 +44,8 @@ function error {
 function cleanup {
     THRESHOLD=$(date -d "$CLEANUP_DAYS days ago" +%s)
     find $1 -maxdepth 1 -type f -print0  | while IFS= read -d '' -r file; do
-        if [[ "$(basename "$file")" =~ ^$2_[0-9]{10}.csv$ ]]; then
-            [ "$(basename "${file#*_}" .csv)" -le "$THRESHOLD" ] && rm -v -- "$file"
+        if [[ "$(basename "$file")" =~ ^$2_[0-9]{10}$3$ ]]; then
+            [ "$(basename "${file#*_}" $3)" -le "$THRESHOLD" ] && rm -v -- "$file"
         fi
     done
 }
@@ -57,7 +57,7 @@ function runExport {
     docker compose exec -T -u root influxdb bash -c "influx query -t '$INFLUXDB_TOKEN' -o '$INFLUXDB_ORG' -f /opt/stack/config/export.flux -r > $CONTAINER_DATA_PATH/$EXPORT_FILE" || return 1
 
     log "Fix permissions for $EXPORT_FILE"
-    docker compose exec -T -u root sip bash -c "chown $USER_ID:$USER_ID $CONTAINER_DATA_PATH/$EXPORT_FILE"
+    docker compose exec -T -u root sip bash -c "chown $USER_ID:$USER_ID $CONTAINER_DATA_PATH/$EXPORT_FILE" || return 1
 
     if [ $BACKUPS_PATH != $LOCAL_DATA_PATH ]; then 
         log "Move file to $EXPORTS_PATH/$EXPORT_FILE"
@@ -65,7 +65,7 @@ function runExport {
     fi
 
     log "Cleanup old exports in $EXPORTS_PATH"
-    cleanup $EXPORTS_PATH sip-export
+    cleanup $EXPORTS_PATH sip-export .csv
 
     return 0
 }
@@ -109,7 +109,7 @@ function runBackup {
     fi
 
     log "Cleanup old backups in $BACKUPS_PATH"
-    cleanup $BACKUPS_PATH sip-backup
+    cleanup $BACKUPS_PATH sip-backup .tar.gz
 
     return 0
 }
