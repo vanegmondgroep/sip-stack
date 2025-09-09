@@ -101,13 +101,10 @@ services:
     image: "ghcr.io/vanegmondgroep/grafana:2.0.0" 
     deploy:
         resources:
-            limits:
-              memory: 128M
-            reservations:
-              memory: 64M
-    #build:
-    #  context: ../docker-grafana
-    #  dockerfile: Dockerfile
+          limits:
+            memory: 128M
+          reservations:
+            memory: 64M
     restart: always
     logging:
       driver: "json-file"
