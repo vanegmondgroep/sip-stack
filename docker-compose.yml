@@ -1,6 +1,3 @@
----
-version: "3"
-
 services:
   sip:
     image: ghcr.io/vanegmondgroep/sip:2.0.1
@@ -61,14 +58,17 @@ services:
       - "./config:/opt/stack/config"
 
   grafana:
-    image: "ghcr.io/vanegmondgroep/grafana:1.0.0"
+    image: "ghcr.io/vanegmondgroep/grafana:2.0.0" 
+    #build:
+    #  context: ../docker-grafana
+    #  dockerfile: Dockerfile
     restart: always
     volumes:
       - "grafana:/var/lib/grafana/data"
       - "./data:/opt/stack/data"
 
   node-red:
-    image: ghcr.io/vanegmondgroep/node-red:1.0.0
+    image: "ghcr.io/vanegmondgroep/node-red:2.1.0"
     restart: always
     volumes:
       - "node-red:/data"
