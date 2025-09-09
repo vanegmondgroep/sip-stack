@@ -7,6 +7,7 @@ locations:
       auth_request_set $auth_email $upstream_http_x_sip_auth_email;
       proxy_set_header X-SIP-AUTH-NAME $auth_name;
       proxy_set_header X-SIP-AUTH-EMAIL $auth_email;
+      proxy_set_header X-Forwarded-Prefix /svc/logs;
 
   - path: /svc/node-red/
     proxy: http://node-red:1880/
