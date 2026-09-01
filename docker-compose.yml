@@ -54,7 +54,7 @@ services:
       retries: 6
 
   redis:
-    image: "docker.io/bitnami/redis:6.2"
+    image: "docker.io/soldevelo/redis:6.2"
     deploy:
       resources:
         limits:
